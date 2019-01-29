@@ -1,0 +1,9 @@
+#!/bin/bash
+
+docker run -it \
+  -v $(pwd):/host \
+  -u `id -u`:`id -g` \
+  --name travis-cli \
+  travis-cli $@
+docker commit travis-cli travis-cli > /dev/null
+docker rm `docker ps -aqf "name=travis-cli"` > /dev/null
